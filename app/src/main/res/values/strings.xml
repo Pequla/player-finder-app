@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PlayerFinder</string>
+    <string name="tab_text_1">Players</string>
+    <string name="tab_text_2">Status</string>
+    <string name="tab_text_3">Saved</string>
+    <string name="dialog_exit_app">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">FRAGMENTUSUS</string>
+</resources>

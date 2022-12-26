@@ -56,7 +56,6 @@ public class StatusFragment extends Fragment {
         TextView address = view.findViewById(R.id.server_address);
         TextView online = view.findViewById(R.id.online);
         TextView version = view.findViewById(R.id.version);
-        TextView protocol = view.findViewById(R.id.protocol);
 
         name.setText(mName);
         address.setText(mAddress);
@@ -75,7 +74,6 @@ public class StatusFragment extends Fragment {
                 PlayerModel pm = model.getPlayers();
                 online.setText(String.format("Currently %s out of %s players online", pm.getOnline(), pm.getMax()));
                 version.setText(String.format("Version: %s", model.getVersion().getName()));
-                protocol.setText(String.format("Protocol: %s", model.getVersion().getProtocol()));
             });
         }));
     }

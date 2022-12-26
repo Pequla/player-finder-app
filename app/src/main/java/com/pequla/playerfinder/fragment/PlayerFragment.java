@@ -1,11 +1,11 @@
 package com.pequla.playerfinder.fragment;
 
-import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,12 +20,7 @@ import com.pequla.playerfinder.model.DataPageModel;
 import com.pequla.playerfinder.service.DialogCallback;
 import com.pequla.playerfinder.service.RestService;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class PlayerFragment extends Fragment {
 
@@ -59,10 +54,13 @@ public class PlayerFragment extends Fragment {
                 listView.setOnItemClickListener((av, v, i, l) -> {
                     DataModel model = (DataModel) av.getItemAtPosition(i);
                     Toast.makeText(getContext(), model.getTag(), Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.com/users/" + model.getDiscordId())));
                 });
             });
         }));
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

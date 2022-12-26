@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,10 +15,17 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.pequla.playerfinder.R;
+import com.pequla.playerfinder.adapter.DataAdapter;
+import com.pequla.playerfinder.adapter.PlayerAdapter;
+import com.pequla.playerfinder.model.status.PlayerDataModel;
 import com.pequla.playerfinder.model.status.PlayerModel;
 import com.pequla.playerfinder.model.status.StatusModel;
 import com.pequla.playerfinder.service.DialogCallback;
 import com.pequla.playerfinder.service.RestService;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StatusFragment extends Fragment {
 
@@ -56,6 +64,7 @@ public class StatusFragment extends Fragment {
         TextView address = view.findViewById(R.id.server_address);
         TextView online = view.findViewById(R.id.online);
         TextView version = view.findViewById(R.id.version);
+        ListView listView = view.findViewById(R.id.status_player_list);
 
         name.setText(mName);
         address.setText(mAddress);
@@ -64,6 +73,7 @@ public class StatusFragment extends Fragment {
         service.getServerStatus(mAddress, new DialogCallback(getActivity(), response -> {
             String json = response.body().string();
             final StatusModel model = service.getMapper().readValue(json, StatusModel.class);
+
             getActivity().runOnUiThread(() -> {
                 // Generating image from base64 string
                 String[] rawBase64 = model.getFavicon().split(",");
@@ -74,6 +84,10 @@ public class StatusFragment extends Fragment {
                 PlayerModel pm = model.getPlayers();
                 online.setText(String.format("Currently %s out of %s players online", pm.getOnline(), pm.getMax()));
                 version.setText(String.format("Version: %s", model.getVersion().getName()));
+
+                // Inflate player list
+                PlayerAdapter adapter = new PlayerAdapter(getActivity(), R.layout.status_player_row, pm.getSample());
+                listView.setAdapter(adapter);
             });
         }));
     }

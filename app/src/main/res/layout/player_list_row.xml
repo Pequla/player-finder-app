@@ -38,15 +38,15 @@
         android:singleLine="true"
         android:text="Discord name" />
 
-    <ImageButton
-        android:id="@+id/favorite_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/discord_name"
-        android:background="#00ffffff"
-        android:src="@android:drawable/btn_star" />
+<!--    <ImageButton-->
+<!--        android:id="@+id/favorite_button"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_toRightOf="@id/discord_name"-->
+<!--        android:background="#00ffffff"-->
+<!--        android:src="@android:drawable/btn_star" />-->
 
 </RelativeLayout>

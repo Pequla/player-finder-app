@@ -1,8 +1,8 @@
 package com.pequla.playerfinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.fab) {
-            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
+
+            startActivity(new Intent(this, ScannerActivity.class));
         }
     }
 }

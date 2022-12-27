@@ -11,17 +11,17 @@ import java.util.ArrayList;
 
 public class FileService {
 
-    private static final String EXTERNAL_APP_DATA_PREFIX = "PLAYER_FINDER_EXTERNAL_DATA";
+    private static final String EXTERNAL_APP_DATA_PREFIX = "PlayerFinderData";
     private static final String EXTERNAL_APP_DATA_FILE_NAME = "favourites.json";
 
     public static void saveFavourite(ArrayList<Integer> favourites) {
         File dir = new File(
-                Environment.getExternalStorageDirectory() + File.separator + "Documents",
+                Environment.getExternalStorageDirectory() + File.separator + "Documents" + File.separator,
                 EXTERNAL_APP_DATA_PREFIX
         );
 
         dir.mkdirs();
-        File file = new File(dir.getAbsolutePath() + EXTERNAL_APP_DATA_FILE_NAME);
+        File file = new File(dir.getAbsolutePath() + File.separator + EXTERNAL_APP_DATA_FILE_NAME);
         ObjectMapper mapper = RestService.getInstance().getMapper();
         try {
             mapper.writeValue(file, favourites);
@@ -31,8 +31,9 @@ public class FileService {
     }
 
     public static ArrayList<Integer> loadFavourites() {
-        File dir = new File(Environment.getExternalStorageDirectory() + File.separator + "Documents", EXTERNAL_APP_DATA_PREFIX);
-        File file = new File(dir.getAbsolutePath() + EXTERNAL_APP_DATA_FILE_NAME);
+        File dir = new File(Environment.getExternalStorageDirectory() + File.separator + "Documents" + File.separator,
+                EXTERNAL_APP_DATA_PREFIX);
+        File file = new File(dir.getAbsolutePath() + File.separator + EXTERNAL_APP_DATA_FILE_NAME);
         ObjectMapper mapper = RestService.getInstance().getMapper();
 
         try {

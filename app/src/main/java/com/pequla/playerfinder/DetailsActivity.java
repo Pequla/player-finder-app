@@ -1,5 +1,6 @@
 package com.pequla.playerfinder;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,10 @@ public class DetailsActivity extends AppCompatActivity {
         // Enabling the back/up button
         getSupportActionBar().setTitle(R.string.details_activity_name);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Loading dialog
+        ProgressDialog loading = ProgressDialog.show(this, "Loading",
+                "Please wait...", true);
 
         // Init components
         TextView mId = findViewById(R.id.details_id);
@@ -85,6 +90,9 @@ public class DetailsActivity extends AppCompatActivity {
                     SaveDialog dialog = new SaveDialog(model);
                     dialog.show(getSupportFragmentManager(), "save_dialog");
                 }));
+
+                // Finished loading
+                loading.hide();
             });
         })));
     }

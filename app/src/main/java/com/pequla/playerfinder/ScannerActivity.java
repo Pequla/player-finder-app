@@ -31,6 +31,8 @@ public class ScannerActivity extends AppCompatActivity {
         CodeScannerView scannerView = findViewById(R.id.scanner_view);
         mCodeScanner = new CodeScanner(this, scannerView);
         scannerView.setOnClickListener((view) -> {
+            // Start camera when you tap on the screen
+            // For privacy reasons
             mCodeScanner.startPreview();
         });
 
@@ -44,7 +46,10 @@ public class ScannerActivity extends AppCompatActivity {
                     startActivity(intent);
                 });
             } catch (IOException e) {
-                Toast.makeText(this, "Invalid QR Code, scan again", Toast.LENGTH_LONG).show();
+                runOnUiThread(() -> {
+                    mCodeScanner.startPreview();
+                    Toast.makeText(this, "Invalid QR Code, scan again", Toast.LENGTH_LONG).show();
+                });
             }
         });
     }

@@ -26,10 +26,6 @@ import java.util.ArrayList;
 
 public class PlayerFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public static PlayerFragment newInstance() {
-        return new PlayerFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,16 +41,14 @@ public class PlayerFragment extends Fragment implements AdapterView.OnItemClickL
         service.getDataPaged(0, 12, new DialogCallback(getActivity(), response -> {
             String json = response.body().string();
             final ArrayList<DataModel> list = service.getMapper().readValue(json, DataPageModel.class).getContent();
-            getActivity().runOnUiThread(() -> {
+            requireActivity().runOnUiThread(() -> {
                 // Create data adapter to form a list
-                DataAdapter adapter = new DataAdapter(getActivity(), R.layout.player_list_row, list);
+                DataAdapter adapter = new DataAdapter(requireActivity(), R.layout.player_list_row, list);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(this);
             });
         }));
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

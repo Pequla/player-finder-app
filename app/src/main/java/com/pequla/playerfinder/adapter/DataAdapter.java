@@ -21,8 +21,8 @@ import java.util.ArrayList;
 
 public class DataAdapter extends ArrayAdapter<DataModel> {
 
-    private Context mContext;
-    private int mResource;
+    private final Context mContext;
+    private final int mResource;
 
     public DataAdapter(@NonNull Context context, int resource, @NonNull ArrayList<DataModel> objects) {
         super(context, resource, objects);
@@ -37,18 +37,20 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         convertView = inflater.inflate(mResource, parent, false);
 
-        ImageView playerImage = convertView.findViewById(R.id.player_image);
-        ImageView discordImage = convertView.findViewById(R.id.discord_image);
-        TextView playerName = convertView.findViewById(R.id.player_name);
-        TextView discordName = convertView.findViewById(R.id.discord_name);
-
         DataModel model = getItem(position);
-        Glide.with(mContext)
-                .load(AppUtils.getMinecraftIconUrl(model.getUuid()))
-                .into(playerImage);
-        Glide.with(mContext).load(model.getAvatar()).into(discordImage);
-        playerName.setText(getItem(position).getName());
-        discordName.setText(getItem(position).getTag());
+        if (model != null) {
+            ImageView playerImage = convertView.findViewById(R.id.player_image);
+            ImageView discordImage = convertView.findViewById(R.id.discord_image);
+            TextView playerName = convertView.findViewById(R.id.player_name);
+            TextView discordName = convertView.findViewById(R.id.discord_name);
+
+            Glide.with(mContext)
+                    .load(AppUtils.getMinecraftIconUrl(model.getUuid()))
+                    .into(playerImage);
+            Glide.with(mContext).load(model.getAvatar()).into(discordImage);
+            playerName.setText(getItem(position).getName());
+            discordName.setText(getItem(position).getTag());
+        }
 
         return convertView;
     }

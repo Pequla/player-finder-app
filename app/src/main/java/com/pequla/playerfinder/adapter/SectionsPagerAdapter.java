@@ -32,18 +32,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // Server status fragment
         if (position == 1) {
-            String serverAddress = "atm8.g.akliz.net";
-            String serverName = "All The Mods 8";
-            return StatusFragment.newInstance(serverAddress, serverName);
+            return new StatusFragment();
         }
 
         // Saved players fragment
         if (position == 2) {
-            return SavedFragment.newInstance();
+            return new SavedFragment();
         }
 
         // Player fragment
-        return PlayerFragment.newInstance();
+        return new PlayerFragment();
     }
 
     @Nullable

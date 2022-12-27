@@ -40,8 +40,13 @@ public class RestService {
                 .enqueue(callback);
     }
 
-    public void getServerStatus(String address, DialogCallback callback) {
-        client.newCall(get("https://link.samifying.com/api/status/" + address))
+    public void getServerStatus(DialogCallback callback) {
+        client.newCall(get("http://109.198.0.204:8010/api/status/players"))
+                .enqueue(callback);
+    }
+
+    public void getDataByUuid(String uuid, DialogCallback callback) {
+        client.newCall(get("https://cache.samifying.com/api/data/uuid/" + uuid))
                 .enqueue(callback);
     }
 

@@ -14,6 +14,10 @@ public class AppUtils {
         return "https://visage.surgeplay.com/full/" + uuid;
     }
 
+    public static String getServerIcon(String address) {
+        return "https://api.mcsrvstat.us/icon/" + address;
+    }
+
     public static String formatDate(Date date) {
         return new SimpleDateFormat("HH:mm dd-MM-yyyy").format(date) + " CEST";
     }

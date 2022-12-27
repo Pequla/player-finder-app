@@ -24,15 +24,10 @@ import java.util.ArrayList;
 
 public class SavedFragment extends Fragment implements AdapterView.OnItemClickListener {
 
-    public static SavedFragment newInstance() {
-        return new SavedFragment();
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -48,8 +43,8 @@ public class SavedFragment extends Fragment implements AdapterView.OnItemClickLi
             service.getDataById(id, new DialogCallback(getActivity(), (response) -> {
                 models.add(service.getMapper().readValue(response.body().string(), DataModel.class));
                 if (models.size() == favourites.size()) {
-                    getActivity().runOnUiThread(() -> {
-                        DataAdapter adapter = new DataAdapter(getActivity(), R.layout.player_list_row, models);
+                    requireActivity().runOnUiThread(() -> {
+                        DataAdapter adapter = new DataAdapter(requireActivity(), R.layout.player_list_row, models);
                         mSavedList.setAdapter(adapter);
                         mSavedList.setOnItemClickListener(this);
                     });

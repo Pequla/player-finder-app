@@ -7,7 +7,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PlayerDataModel {
-    private String name;
+public class DiscordModel {
     private String id;
+    private String name;
+    private String nickname;
+    private String avatar;
 }

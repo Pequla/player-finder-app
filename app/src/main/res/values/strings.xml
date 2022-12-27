@@ -6,4 +6,6 @@
     <string name="dialog_exit_app">Close</string>
     <string name="details_activity_name">Details</string>
     <string name="scanner_activity_name">Scanner</string>
+    <string name="status_server_name">Flux SMP</string>
+    <string name="status_server_address">fluxsmp.pequla.com</string>
 </resources>

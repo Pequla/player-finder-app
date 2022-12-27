@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.pequla.playerfinder.DetailsActivity;
 import com.pequla.playerfinder.R;
 import com.pequla.playerfinder.adapter.DataAdapter;
 import com.pequla.playerfinder.model.DataModel;
@@ -22,11 +24,7 @@ import com.pequla.playerfinder.service.RestService;
 
 import java.util.ArrayList;
 
-public class PlayerFragment extends Fragment {
-
-    public PlayerFragment() {
-        // Required empty public constructor
-    }
+public class PlayerFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     public static PlayerFragment newInstance() {
         return new PlayerFragment();
@@ -51,11 +49,7 @@ public class PlayerFragment extends Fragment {
                 // Create data adapter to form a list
                 DataAdapter adapter = new DataAdapter(getActivity(), R.layout.player_list_row, list);
                 listView.setAdapter(adapter);
-                listView.setOnItemClickListener((av, v, i, l) -> {
-                    DataModel model = (DataModel) av.getItemAtPosition(i);
-                    Toast.makeText(getContext(), model.getTag(), Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://discord.com/users/" + model.getDiscordId())));
-                });
+                listView.setOnItemClickListener(this);
             });
         }));
     }
@@ -67,5 +61,14 @@ public class PlayerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_player, container, false);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        // Open player details
+        DataModel model = (DataModel) adapterView.getItemAtPosition(i);
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+        intent.putExtra(DetailsActivity.PLAYER_DATA_ID_KEY, String.valueOf(model.getId()));
+        startActivity(intent);
     }
 }

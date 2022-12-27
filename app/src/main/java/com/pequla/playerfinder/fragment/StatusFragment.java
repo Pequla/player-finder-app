@@ -15,17 +15,13 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.pequla.playerfinder.R;
-import com.pequla.playerfinder.adapter.DataAdapter;
 import com.pequla.playerfinder.adapter.PlayerAdapter;
-import com.pequla.playerfinder.model.status.PlayerDataModel;
 import com.pequla.playerfinder.model.status.PlayerModel;
 import com.pequla.playerfinder.model.status.StatusModel;
 import com.pequla.playerfinder.service.DialogCallback;
 import com.pequla.playerfinder.service.RestService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 public class StatusFragment extends Fragment {
 
@@ -33,10 +29,6 @@ public class StatusFragment extends Fragment {
     private static final String SERVER_NAME = "server_name";
     private String mAddress;
     private String mName;
-
-    public StatusFragment() {
-        // Required empty public constructor
-    }
 
     public static StatusFragment newInstance(String address, String name) {
         StatusFragment fragment = new StatusFragment();
@@ -71,13 +63,13 @@ public class StatusFragment extends Fragment {
 
         RestService service = RestService.getInstance();
         service.getServerStatus(mAddress, new DialogCallback(getActivity(), response -> {
-            String json = response.body().string();
+            String json = Objects.requireNonNull(response.body()).string();
             final StatusModel model = service.getMapper().readValue(json, StatusModel.class);
 
-            getActivity().runOnUiThread(() -> {
+            requireActivity().runOnUiThread(() -> {
                 // Generating image from base64 string
                 String[] rawBase64 = model.getFavicon().split(",");
-                Glide.with(getActivity())
+                Glide.with(requireActivity())
                         .load(Base64.decode(rawBase64[1], Base64.DEFAULT))
                         .into(image);
 
@@ -86,8 +78,10 @@ public class StatusFragment extends Fragment {
                 version.setText(String.format("Version: %s", model.getVersion().getName()));
 
                 // Inflate player list
-                PlayerAdapter adapter = new PlayerAdapter(getActivity(), R.layout.status_player_row, pm.getSample());
-                listView.setAdapter(adapter);
+                if (pm.getOnline() > 0) {
+                    PlayerAdapter adapter = new PlayerAdapter(requireActivity(), R.layout.status_player_row, pm.getSample());
+                    listView.setAdapter(adapter);
+                }
             });
         }));
     }

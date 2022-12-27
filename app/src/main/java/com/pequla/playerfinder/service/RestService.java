@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import lombok.Getter;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
+@Getter
 public class RestService {
 
     private static RestService instance;
@@ -45,9 +47,5 @@ public class RestService {
 
     private Request get(String url) {
         return new Request.Builder().url(url).get().build();
-    }
-
-    public ObjectMapper getMapper() {
-        return mapper;
     }
 }

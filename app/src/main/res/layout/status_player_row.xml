@@ -17,6 +17,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/status_player_icon"
         android:textStyle="bold"
+        android:textSize="18sp"
         />
 
 </RelativeLayout>

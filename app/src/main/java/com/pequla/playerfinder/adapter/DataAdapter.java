@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.pequla.playerfinder.AppUtils;
 import com.pequla.playerfinder.R;
 import com.pequla.playerfinder.model.DataModel;
 
@@ -43,7 +44,7 @@ public class DataAdapter extends ArrayAdapter<DataModel> {
 
         DataModel model = getItem(position);
         Glide.with(mContext)
-                .load("https://crafatar.com/avatars/" + model.getUuid())
+                .load(AppUtils.getMinecraftIconUrl(model.getUuid()))
                 .into(playerImage);
         Glide.with(mContext).load(model.getAvatar()).into(discordImage);
         playerName.setText(getItem(position).getName());

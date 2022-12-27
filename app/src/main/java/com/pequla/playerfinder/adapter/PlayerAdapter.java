@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
+import com.pequla.playerfinder.AppUtils;
 import com.pequla.playerfinder.R;
 import com.pequla.playerfinder.model.status.PlayerDataModel;
 
@@ -41,7 +42,7 @@ public class PlayerAdapter extends ArrayAdapter<PlayerDataModel> {
 
         PlayerDataModel model = getItem(position);
         Glide.with(mContext)
-                .load("https://crafatar.com/avatars/" + model.getId())
+                .load(AppUtils.getMinecraftIconUrl(model.getId()))
                 .into(playerImage);
         playerName.setText(getItem(position).getName());
 

@@ -39,7 +39,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         // Saved players fragment
         if (position == 2) {
-            return SavedFragment.newInstance("x", "o");
+            return SavedFragment.newInstance();
         }
 
         // Player fragment

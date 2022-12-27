@@ -1,25 +1,13 @@
 package com.pequla.playerfinder.model.status;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
 public class VersionModel {
     private String name;
     private int protocol;
-
-    public VersionModel() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getProtocol() {
-        return protocol;
-    }
-
-    public void setProtocol(int protocol) {
-        this.protocol = protocol;
-    }
 }

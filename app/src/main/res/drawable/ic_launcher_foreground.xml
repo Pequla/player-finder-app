@@ -3,14 +3,43 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108"
-    android:tint="#FFFFFF"
-    android:autoMirrored="true">
-  <group android:scaleX="3.132"
-      android:scaleY="3.132"
-      android:translateX="16.416"
-      android:translateY="14.676">
+    android:tint="#FFFFFF">
+  <group android:scaleX="2.0625365"
+      android:scaleY="2.0625365"
+      android:translateX="29.249561"
+      android:translateY="29.249561">
     <path
         android:fillColor="@android:color/white"
-        android:pathData="M7,9H2V7h5V9zM7,12H2v2h5V12zM20.59,19l-3.83,-3.83C15.96,15.69 15.02,16 14,16c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5s5,2.24 5,5c0,1.02 -0.31,1.96 -0.83,2.75L22,17.59L20.59,19zM17,11c0,-1.65 -1.35,-3 -3,-3s-3,1.35 -3,3s1.35,3 3,3S17,12.65 17,11zM2,19h10v-2H2V19z"/>
+        android:pathData="M3,11h8V3H3V11zM5,5h4v4H5V5z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M3,21h8v-8H3V21zM5,15h4v4H5V15z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M13,3v8h8V3H13zM19,9h-4V5h4V9z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M19,19h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M13,13h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M15,15h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M13,17h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M15,19h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M17,17h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M17,13h2v2h-2z"/>
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M19,15h2v2h-2z"/>
   </group>
 </vector>

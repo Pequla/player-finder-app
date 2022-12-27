@@ -35,8 +35,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.fab) {
-//            Toast.makeText(this, "Coming soon", Toast.LENGTH_SHORT).show();
-
             startActivity(new Intent(this, ScannerActivity.class));
         }
     }

@@ -11,4 +11,8 @@ import lombok.Setter;
 @Setter
 public class DataPageModel {
     private ArrayList<DataModel> content;
+    private boolean first;
+    private boolean last;
+    private int pageNumber;
+    private int totalPages;
 }

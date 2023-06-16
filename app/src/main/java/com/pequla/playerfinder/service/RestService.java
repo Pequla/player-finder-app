@@ -13,7 +13,6 @@ import okhttp3.Request;
 public class RestService {
 
     private static RestService instance;
-
     private final OkHttpClient client;
     private final ObjectMapper mapper;
 
@@ -41,7 +40,7 @@ public class RestService {
     }
 
     public void getServerStatus(DialogCallback callback) {
-        client.newCall(get("http://109.198.0.204:8010/api/status/players"))
+        client.newCall(get("https://link.samifying.com/api/status/play.beocraft.net"))
                 .enqueue(callback);
     }
 

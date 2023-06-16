@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class QrcodeModel {
-
     private String type;
     private int id;
 }

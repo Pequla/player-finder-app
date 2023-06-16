@@ -22,6 +22,7 @@ import com.pequla.playerfinder.adapter.DataAdapter;
 import com.pequla.playerfinder.model.DataModel;
 import com.pequla.playerfinder.model.status.PlayerData;
 import com.pequla.playerfinder.model.status.PlayerModel;
+import com.pequla.playerfinder.model.status.ServerStatus;
 import com.pequla.playerfinder.service.DialogCallback;
 import com.pequla.playerfinder.service.RestService;
 
@@ -45,25 +46,26 @@ public class StatusFragment extends Fragment implements AdapterView.OnItemClickL
         RestService service = RestService.getInstance();
         service.getServerStatus(new DialogCallback(getActivity(), response -> {
             String json = Objects.requireNonNull(response.body()).string();
-            final PlayerData data = service.getMapper().readValue(json, PlayerData.class);
+            final ServerStatus status = service.getMapper().readValue(json, ServerStatus.class);
 
             requireActivity().runOnUiThread(() -> {
                 Glide.with(requireActivity())
                         .load(AppUtils.getServerIcon(getResources().getString(R.string.status_server_address)))
                         .into(image);
 
+                PlayerData data = status.getPlayers();
                 online.setText(String.format("Currently %s out of %s players online", data.getOnline(), data.getMax()));
             });
 
             // Inflate player list
             ArrayList<DataModel> models = new ArrayList<>();
-            if (data.getOnline() > 0) {
-                for (PlayerModel model : data.getList())
-                    service.getDataByUuid(model.getId(), new DialogCallback(getActivity(), (rsp) -> {
+            if (status.getPlayers().getOnline() > 0) {
+                for (PlayerModel model : status.getPlayers().getSample())
+                    service.getDataByUuid(model.getId().replaceAll("-", ""), new DialogCallback(getActivity(), (rsp) -> {
                         models.add(service.getMapper().readValue(rsp.body().string(), DataModel.class));
 
                         // Making sure all the data got converted async
-                        if (models.size() == data.getList().size()) {
+                        if (models.size() == status.getPlayers().getSample().size()) {
                             requireActivity().runOnUiThread(() -> {
                                 listView.setAdapter(new DataAdapter(requireActivity(), R.layout.player_list_row, models));
                                 listView.setOnItemClickListener(this);

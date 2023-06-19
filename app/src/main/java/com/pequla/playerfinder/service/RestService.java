@@ -30,7 +30,7 @@ public class RestService {
     }
 
     public void getDataPaged(int page, int size, DialogCallback callback) {
-        client.newCall(get("https://cache.samifying.com/api/data?page=" + page + "&size=" + size))
+        client.newCall(get("https://cache.samifying.com/api/data?sort=id,desc&page=" + page + "&size=" + size))
                 .enqueue(callback);
     }
 

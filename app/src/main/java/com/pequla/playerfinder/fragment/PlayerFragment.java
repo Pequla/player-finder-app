@@ -31,7 +31,6 @@ public class PlayerFragment extends Fragment implements AdapterView.OnItemClickL
     private Button mBtnNext;
     private ListView mListView;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

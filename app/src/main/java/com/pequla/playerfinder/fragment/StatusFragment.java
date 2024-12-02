@@ -43,37 +43,50 @@ public class StatusFragment extends Fragment implements AdapterView.OnItemClickL
         TextView online = view.findViewById(R.id.online);
         ListView listView = view.findViewById(R.id.status_player_list);
 
-        RestService service = RestService.getInstance();
-        service.getServerStatus(new DialogCallback(getActivity(), response -> {
-            String json = Objects.requireNonNull(response.body()).string();
-            final ServerStatus status = service.getMapper().readValue(json, ServerStatus.class);
+        try {
+            RestService service = RestService.getInstance();
+            service.getServerStatus(new DialogCallback(getActivity(), response -> {
+                if (response.code() != 200) {
+                    requireActivity().runOnUiThread(() -> online.setText("Failed to load status"));
+                    return;
+                }
 
-            requireActivity().runOnUiThread(() -> {
-                Glide.with(requireActivity())
-                        .load(AppUtils.getServerIcon(getResources().getString(R.string.status_server_address)))
-                        .into(image);
+                String json = Objects.requireNonNull(response.body()).string();
+                final ServerStatus status = service.getMapper().readValue(json, ServerStatus.class);
 
-                PlayerData data = status.getPlayers();
-                online.setText(String.format("Currently %s out of %s players online", data.getOnline(), data.getMax()));
-            });
+                requireActivity().runOnUiThread(() -> {
+                    try {
+                        Glide.with(requireActivity())
+                                .load(AppUtils.getServerIcon(getResources().getString(R.string.status_server_address)))
+                                .into(image);
 
-            // Inflate player list
-            ArrayList<DataModel> models = new ArrayList<>();
-            if (status.getPlayers().getOnline() > 0) {
-                for (PlayerModel model : status.getPlayers().getSample())
-                    service.getDataByUuid(model.getId().replaceAll("-", ""), new DialogCallback(getActivity(), (rsp) -> {
-                        models.add(service.getMapper().readValue(rsp.body().string(), DataModel.class));
+                        PlayerData data = status.getPlayers();
+                        online.setText(String.format("Currently %s out of %s players online", data.getOnline(), data.getMax()));
+                    } catch (Exception e) {
+                        online.setText(e.getMessage());
+                    }
+                });
 
-                        // Making sure all the data got converted async
-                        if (models.size() == status.getPlayers().getSample().size()) {
-                            requireActivity().runOnUiThread(() -> {
-                                listView.setAdapter(new DataAdapter(requireActivity(), R.layout.player_list_row, models));
-                                listView.setOnItemClickListener(this);
-                            });
-                        }
-                    }));
-            }
-        }));
+                // Inflate player list
+                ArrayList<DataModel> models = new ArrayList<>();
+                if (status.getPlayers() != null && status.getPlayers().getOnline() > 0) {
+                    for (PlayerModel model : status.getPlayers().getSample())
+                        service.getDataByUuid(model.getId().replaceAll("-", ""), new DialogCallback(getActivity(), (rsp) -> {
+                            models.add(service.getMapper().readValue(rsp.body().string(), DataModel.class));
+
+                            // Making sure all the data got converted async
+                            if (models.size() == status.getPlayers().getSample().size()) {
+                                requireActivity().runOnUiThread(() -> {
+                                    listView.setAdapter(new DataAdapter(requireActivity(), R.layout.player_list_row, models));
+                                    listView.setOnItemClickListener(this);
+                                });
+                            }
+                        }));
+                }
+            }));
+        } catch (Exception e) {
+            online.setText(e.getMessage());
+        }
     }
 
     @Override
